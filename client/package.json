@@ -9,7 +9,6 @@
     "fullcalendar-reactwrapper": "^1.0.7",
     "instantsearch.css": "^7.1.0",
     "lodash": "^4.17.11",
-    "mongoolia": "^1.0.3",
     "rc-time-picker": "3.4.0",
     "react": "^16.5.2",
     "react-collapsible-component": "^1.1.1",

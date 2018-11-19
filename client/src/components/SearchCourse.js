@@ -15,50 +15,6 @@ import 'instantsearch.css/themes/reset.css';
 import './SearchCourse.css';
 import { CollapsibleComponent, CollapsibleHead, CollapsibleContent } from 'react-collapsible-component'
 import algoliasearch from 'algoliasearch';
-import mongoose from 'mongoose';
-import mongoolia from 'mongoolia';
-
-// Pass `{algoliaIndex: true}` to push theses attributes for indexing to Algolia
-const newIndex = new mongoose.Schema({
-  description: { type: String, required: true, algoliaIndex: true },
-  prereqs: { type: String, required: true, algoliaIndex: true },
-  lecture: {
-    days: { type: String, required: true, algoliaIndex: true },
-    times: { type: String, required: true, algoliaIndex: true },
-    room: { type: String, required: true, algoliaIndex: true },
-    instructor: { type: String, required: true, algoliaIndex: true },
-    meetingDates: { type: String, required: true, algoliaIndex: true }
-  },
-  profReview: { 
-    rating: { type: String, required: true, algoliaIndex: true },
-    amountReviewed: { type: String, required: true, algoliaIndex: true }
-  },
-  sections: { type: Array, required: true, algoliaIndex: true },
-  courseTitle: { type: String, required: true, algoliaIndex: true },
-  courseID: { type: String, required: true, algoliaIndex: true },
-  meta: { 
-    career: { type: String, required: true, algoliaIndex: true },
-    grading: { type: String, required: true, algoliaIndex: true },
-    class_number: { type: String, required: true, algoliaIndex: true },
-    type: { type: String, required: true, algoliaIndex: true },
-    credits: { type: String, required: true, algoliaIndex: true },
-    general_education: { type: String, required: true, algoliaIndex: true },
-    status: { type: String, required: true, algoliaIndex: true },
-    available_seats: { type: String, required: true, algoliaIndex: true },
-    enrollment_capacity: { type: String, required: true, algoliaIndex: true },
-    enrolled: { type: String, required: true, algoliaIndex: true },
-    wait_list_capacity: { type: String, required: true, algoliaIndex: true }
-   },
-});
-
-// Specify your Algolia credentials which you can find into your dashboard
-newIndex.plugin(mongoolia, {
-    apiKey:"e0f4e3542265d408d5be8de22d00a12e",
-    appId:"Z4ZULV1BRS",
-    indexName:"fall18"
-})
-const course = mongoose.model("course", newIndex)
-course.syncWithAlgolia();
 
 /*
 const chunk = require('lodash.chunk')

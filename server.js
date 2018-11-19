@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const mongoolia = require('mongoolia').default;
 const cors = require("cors");
 
 const app = express();
@@ -13,6 +14,7 @@ const ClassData = require("./server/models/classData");
 const Data = require("./server/models/Data");
 const GEData = require("./server/models/geData")
 const calData = require("./server/models/calData");
+const newIndex = require("./server/models/newIndex");
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -37,6 +39,13 @@ app.get("/", (req, res) => {
   res.send({ express: "Connected!" });
 });
 
+// Specify your Algolia credentials which you can find into your dashboard
+newIndex.plugin(mongoolia, {
+	apiKey: "e0f4e3542265d408d5be8de22d00a12e",
+	appId: "Z4ZULV1BRS",
+	indexName: "fall18"
+})
+
 // Sorts User Class data into dictionary: {year: [summer classes], [fall classes], [spring classes], [winter classes]}
 function sort(userClasses){
 	var sorted = {};
@@ -52,6 +61,11 @@ function sort(userClasses){
 	}
 	return sorted;
 }
+
+app.get("/api/searchCourse", (req, res) => {
+	const course = mongoose.model("course", newIndex);
+	course.syncWithAlgolia();
+});
 
 // Gets all user classes from the database and returns in a sorted manner
 app.post("/api/userClasses", (req, res) => {
